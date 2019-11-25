@@ -2,12 +2,12 @@ package com.example.myapplication.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import com.example.myapplication.R
 import com.example.myapplication.mvp.model.CalculatorModel
 import com.example.myapplication.mvp.presenter.CalculatorPresenter
 import com.example.myapplication.mvp.view.CalculatorView
+import kotlinx.android.synthetic.main.activity_main.button_clear
+import kotlinx.android.synthetic.main.activity_main.button_clear_all
 import kotlinx.android.synthetic.main.activity_main.button_divide
 import kotlinx.android.synthetic.main.activity_main.button_eight
 import kotlinx.android.synthetic.main.activity_main.button_equal
@@ -52,5 +52,7 @@ class MainActivity : AppCompatActivity() {
         button_point.setOnClickListener { presenter.onNumberPressed(button_point.text.toString()) }
         button_divide.setOnClickListener { presenter.onOperatorPressed(button_divide.text.toString()) }
         button_multiplication.setOnClickListener { presenter.onNumberPressed(button_multiplication.text.toString()) }
+        button_clear.setOnClickListener { presenter.onClearPressed()}
+        button_clear_all.setOnClickListener { presenter.onClearAllPressed() }
     }
 }
