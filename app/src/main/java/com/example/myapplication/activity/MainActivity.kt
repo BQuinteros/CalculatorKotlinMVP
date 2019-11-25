@@ -63,6 +63,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             button_plus, button_less, button_multiplication,
             button_divide -> presenter?.onOperatorPressed(pressed)
             button_equal -> presenter?.onEqualPressed()
+            else -> {
+                //nothing to do
+            }
         }
     }
 }
