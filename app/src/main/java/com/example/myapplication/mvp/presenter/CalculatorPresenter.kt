@@ -12,23 +12,23 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
 
     fun onNumberPressed(number: String) {
         if (model.getOperand() == EMPTY_STRING) {
-            model.setOperator1("${model.getOperator1()}$number")
-            view.setVisor(model.getOperator1())
+            model.setOperatorOne("${model.getOperatorOne()}$number")
+            view.setVisor(model.getOperatorOne())
         } else {
-            model.setOperator2("${model.getOperator2()}$number")
-            view.setVisor("${model.getOperator1()}${model.getOperand()}${model.getOperator2()}")
+            model.setOperatorTwo("${model.getOperatorTwo()}$number")
+            view.setVisor("${model.getOperatorOne()}${model.getOperand()}${model.getOperatorTwo()}")
         }
     }
 
     fun onOperatorPressed(operator: String) {
-        if (model.getOperator1() != EMPTY_STRING) {
+        if (model.getOperatorOne() != EMPTY_STRING) {
             if (model.getOperand() == EMPTY_STRING) {
                 model.setOperand(operator)
-                view.setVisor("${model.getOperator1()}$operator")
+                view.setVisor("${model.getOperatorOne()}$operator")
             } else {
-                model.setOperator2(EMPTY_STRING)
+                model.setOperatorTwo(EMPTY_STRING)
                 model.setOperand(operator)
-                view.setVisor("${model.getOperator1()}$operator")
+                view.setVisor("${model.getOperatorOne()}$operator")
             }
         }
     }
@@ -36,24 +36,24 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
     fun onEqualPressed() {
         when (model.getOperand()) {
             PLUS -> {
-                model.setResult(model.getOperator1().toFloat() + model.getOperator2().toFloat())
+                model.setResult(model.getOperatorOne().toFloat() + model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
             SUBTRACT -> {
-                model.setResult(model.getOperator1().toFloat() - model.getOperator2().toFloat())
+                model.setResult(model.getOperatorOne().toFloat() - model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
             DIVIDE -> {
-                model.setResult(model.getOperator1().toFloat() / model.getOperator2().toFloat())
+                model.setResult(model.getOperatorOne().toFloat() / model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
             MULTIPLICATION -> {
-                model.setResult(model.getOperator1().toFloat() * model.getOperator2().toFloat())
+                model.setResult(model.getOperatorOne().toFloat() * model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
         }
-        model.setOperator1(EMPTY_STRING)
-        model.setOperator2(EMPTY_STRING)
+        model.setOperatorOne(EMPTY_STRING)
+        model.setOperatorTwo(EMPTY_STRING)
         model.setOperand(EMPTY_STRING)
     }
 }

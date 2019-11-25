@@ -4,25 +4,25 @@ import com.example.myapplication.utils.EMPTY_STRING
 import com.example.myapplication.utils.NULL_RESULT
 
 class CalculatorModel {
-    private var operator1: String = EMPTY_STRING
-    private var operator2: String = EMPTY_STRING
+    private var operatorOne: String = EMPTY_STRING
+    private var operatorTwo: String = EMPTY_STRING
     private var operand: String = EMPTY_STRING
     private var result: Float = NULL_RESULT
 
-    fun getOperator1() = operator1
+    fun getOperatorOne() = operatorOne
 
-    fun getOperator2() = operator2
+    fun getOperatorTwo() = operatorTwo
 
     fun getOperand() = operand
 
     fun getResult() = result
 
-    fun setOperator1(operator: String) {
-        this.operator1 = operator
+    fun setOperatorOne(operator: String) {
+        this.operatorOne = operator
     }
 
-    fun setOperator2(operator: String) {
-        this.operator2 = operator
+    fun setOperatorTwo(operator: String) {
+        this.operatorTwo = operator
     }
 
     fun setOperand(operand: String) {
