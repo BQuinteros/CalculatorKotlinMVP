@@ -27,13 +27,15 @@ import kotlinx.android.synthetic.main.activity_main.button_zero
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var presenter : CalculatorPresenter ?= null
+    private var presenter = CalculatorPresenter(CalculatorModel(), CalculatorView(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter = CalculatorPresenter(CalculatorModel(), CalculatorView(this))
+        listenerButtonClick()
+    }
 
+    fun listenerButtonClick() {
         button_zero.setOnClickListener(this)
         button_one.setOnClickListener(this)
         button_two.setOnClickListener(this)
@@ -53,18 +55,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        val pressed : String = (v as Button).text.toString()
-        when (v.id){
-            R.id.button_zero, R.id.button_one, R.id.button_two, R.id.button_three, R.id.button_four,
-            R.id.button_five, R.id.button_five, R.id.button_six, R.id.button_seven, R.id.button_eight,
-            R.id.button_nine, R.id.button_point -> presenter?.onNumberPressed(pressed)
-            R.id.button_plus, R.id.button_plus, R.id.button_less, R.id.button_multiplication,
-            R.id.button_divide -> presenter?.onOperatorPressed(pressed)
-            R.id.button_equal -> presenter?.onEqualPressed()
-            else -> {
-            }
+        val pressed: String = (v as Button).text.toString()
+        when (v) {
+            button_zero, button_one, button_two, button_three, button_four,
+            button_five, button_six, button_seven, button_eight,
+            button_nine, button_point -> presenter?.onNumberPressed(pressed)
+            button_plus, button_less, button_multiplication,
+            button_divide -> presenter?.onOperatorPressed(pressed)
+            button_equal -> presenter?.onEqualPressed()
         }
     }
-
-
 }
