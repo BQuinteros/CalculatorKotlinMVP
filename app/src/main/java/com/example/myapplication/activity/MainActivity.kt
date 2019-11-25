@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.button_three
 import kotlinx.android.synthetic.main.activity_main.button_two
 import kotlinx.android.synthetic.main.activity_main.button_zero
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
     private var presenter = CalculatorPresenter(CalculatorModel(), CalculatorView(this))
 
@@ -36,36 +36,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun listenerButtonClick() {
-        button_zero.setOnClickListener(this)
-        button_one.setOnClickListener(this)
-        button_two.setOnClickListener(this)
-        button_three.setOnClickListener(this)
-        button_four.setOnClickListener(this)
-        button_five.setOnClickListener(this)
-        button_six.setOnClickListener(this)
-        button_seven.setOnClickListener(this)
-        button_eight.setOnClickListener(this)
-        button_nine.setOnClickListener(this)
-        button_plus.setOnClickListener(this)
-        button_equal.setOnClickListener(this)
-        button_less.setOnClickListener(this)
-        button_point.setOnClickListener(this)
-        button_divide.setOnClickListener(this)
-        button_multiplication.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        val pressed: String = (v as Button).text.toString()
-        when (v) {
-            button_zero, button_one, button_two, button_three, button_four,
-            button_five, button_six, button_seven, button_eight,
-            button_nine, button_point -> presenter?.onNumberPressed(pressed)
-            button_plus, button_less, button_multiplication,
-            button_divide -> presenter?.onOperatorPressed(pressed)
-            button_equal -> presenter?.onEqualPressed()
-            else -> {
-                //nothing to do
-            }
-        }
+        button_zero.setOnClickListener { presenter.onNumberPressed(button_zero.text.toString()) }
+        button_one.setOnClickListener { presenter.onNumberPressed(button_one.text.toString()) }
+        button_two.setOnClickListener { presenter.onNumberPressed(button_two.text.toString()) }
+        button_three.setOnClickListener { presenter.onNumberPressed(button_three.text.toString()) }
+        button_four.setOnClickListener { presenter.onNumberPressed(button_four.text.toString()) }
+        button_five.setOnClickListener { presenter.onNumberPressed(button_five.text.toString()) }
+        button_six.setOnClickListener { presenter.onNumberPressed(button_six.text.toString()) }
+        button_seven.setOnClickListener { presenter.onNumberPressed(button_seven.text.toString()) }
+        button_eight.setOnClickListener { presenter.onNumberPressed(button_eight.text.toString()) }
+        button_nine.setOnClickListener { presenter.onNumberPressed(button_nine.text.toString()) }
+        button_plus.setOnClickListener { presenter.onOperatorPressed(button_plus.text.toString()) }
+        button_equal.setOnClickListener { presenter.onEqualPressed() }
+        button_less.setOnClickListener { presenter.onOperatorPressed(button_less.text.toString()) }
+        button_point.setOnClickListener { presenter.onNumberPressed(button_point.text.toString()) }
+        button_divide.setOnClickListener { presenter.onOperatorPressed(button_divide.text.toString()) }
+        button_multiplication.setOnClickListener { presenter.onNumberPressed(button_multiplication.text.toString()) }
     }
 }

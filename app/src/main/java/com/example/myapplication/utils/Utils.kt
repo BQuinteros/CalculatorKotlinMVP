@@ -5,4 +5,4 @@ const val NULL_RESULT : Float = 0F
 const val PLUS : String = "+"
 const val SUBTRACT : String = "-"
 const val DIVIDE : String = "/"
-const val MULTIPLICATION : String = "x"
+const val MULTIPLY : String = "x"

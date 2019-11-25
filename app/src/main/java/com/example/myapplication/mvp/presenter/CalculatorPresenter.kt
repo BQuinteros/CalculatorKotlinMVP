@@ -4,7 +4,7 @@ import com.example.myapplication.mvp.model.CalculatorModel
 import com.example.myapplication.mvp.view.CalculatorView
 import com.example.myapplication.utils.DIVIDE
 import com.example.myapplication.utils.EMPTY_STRING
-import com.example.myapplication.utils.MULTIPLICATION
+import com.example.myapplication.utils.MULTIPLY
 import com.example.myapplication.utils.PLUS
 import com.example.myapplication.utils.SUBTRACT
 
@@ -47,7 +47,7 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
                 model.setResult(model.getOperatorOne().toFloat() / model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
-            MULTIPLICATION -> {
+            MULTIPLY -> {
                 model.setResult(model.getOperatorOne().toFloat() * model.getOperatorTwo().toFloat())
                 view.setResult(model.getResult().toString())
             }
