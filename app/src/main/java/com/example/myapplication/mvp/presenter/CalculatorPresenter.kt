@@ -1,12 +1,11 @@
 package com.example.myapplication.mvp.presenter
 
-import android.util.Log
 import com.example.myapplication.mvp.model.CalculatorModel
 import com.example.myapplication.mvp.view.CalculatorView
 import com.example.myapplication.utils.DIVIDE
 import com.example.myapplication.utils.EMPTY_STRING
 import com.example.myapplication.utils.MULTIPLY
-import com.example.myapplication.utils.NULL_RESULT
+import com.example.myapplication.utils.ZERO_FLOAT_RESULT
 import com.example.myapplication.utils.PLUS
 import com.example.myapplication.utils.SUBTRACT
 
@@ -76,7 +75,7 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
         model.setOperand(EMPTY_STRING)
         model.setOperatorOne(EMPTY_STRING)
         model.setOperatorTwo(EMPTY_STRING)
-        model.setResult(NULL_RESULT)
+        model.setResult(ZERO_FLOAT_RESULT)
         view.setVisor(EMPTY_STRING)
         view.setResult(EMPTY_STRING)
     }

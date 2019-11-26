@@ -1,13 +1,13 @@
 package com.example.myapplication.mvp.model
 
 import com.example.myapplication.utils.EMPTY_STRING
-import com.example.myapplication.utils.NULL_RESULT
+import com.example.myapplication.utils.ZERO_FLOAT_RESULT
 
 class CalculatorModel {
     private var operatorOne: String = EMPTY_STRING
     private var operatorTwo: String = EMPTY_STRING
     private var operand: String = EMPTY_STRING
-    private var result: Float = NULL_RESULT
+    private var result: Float = ZERO_FLOAT_RESULT
 
     fun getOperatorOne() = operatorOne
 
