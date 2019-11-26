@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         button_less.setOnClickListener { presenter.onOperatorPressed(button_less.text.toString()) }
         button_point.setOnClickListener { presenter.onNumberPressed(button_point.text.toString()) }
         button_divide.setOnClickListener { presenter.onOperatorPressed(button_divide.text.toString()) }
-        button_multiplication.setOnClickListener { presenter.onNumberPressed(button_multiplication.text.toString()) }
+        button_multiplication.setOnClickListener { presenter.onOperatorPressed(button_multiplication.text.toString()) }
         button_clear.setOnClickListener { presenter.onClearPressed()}
         button_clear_all.setOnClickListener { presenter.onClearAllPressed() }
     }

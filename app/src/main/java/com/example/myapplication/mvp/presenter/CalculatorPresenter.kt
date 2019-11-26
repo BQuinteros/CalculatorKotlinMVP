@@ -1,5 +1,6 @@
 package com.example.myapplication.mvp.presenter
 
+import android.util.Log
 import com.example.myapplication.mvp.model.CalculatorModel
 import com.example.myapplication.mvp.view.CalculatorView
 import com.example.myapplication.utils.DIVIDE
@@ -12,7 +13,7 @@ import com.example.myapplication.utils.SUBTRACT
 class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) {
 
     fun onNumberPressed(number: String) {
-        if (model.getOperand() == EMPTY_STRING) {
+        if (model.getOperand().isEmpty()) {
             model.setOperatorOne("${model.getOperatorOne()}$number")
             view.setVisor(model.getOperatorOne())
         } else {
@@ -22,8 +23,8 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
     }
 
     fun onOperatorPressed(operator: String) {
-        if (model.getOperatorOne() != EMPTY_STRING) {
-            if (model.getOperand() == EMPTY_STRING) {
+        if (model.getOperatorOne().isNotEmpty()) {
+            if (model.getOperand().isEmpty()) {
                 model.setOperand(operator)
                 view.setVisor("${model.getOperatorOne()}$operator")
             } else {
@@ -59,13 +60,13 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
     }
 
     fun onClearPressed() {
-        if (model.getOperatorTwo() != EMPTY_STRING) {
+        if (model.getOperatorTwo().isNotEmpty()) {
             model.setOperatorTwo("${model.getOperatorTwo().subSequence(0, model.getOperatorTwo().length - 1)}")
             view.setVisor("${model.getOperatorOne()}${model.getOperand()}${model.getOperatorTwo()}")
-        } else if (model.getOperand() != EMPTY_STRING) {
+        } else if (model.getOperand().isNotEmpty()) {
             model.setOperand(EMPTY_STRING)
             view.setVisor(model.getOperatorOne())
-        } else if (model.getOperatorOne() != EMPTY_STRING) {
+        } else if (model.getOperatorOne().isNotEmpty()) {
             model.setOperatorOne("${model.getOperatorOne().subSequence(0, model.getOperatorOne().length - 1)}")
             view.setVisor(model.getOperatorOne())
         }
