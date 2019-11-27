@@ -5,11 +5,13 @@ import com.example.myapplication.mvp.view.CalculatorView
 import com.example.myapplication.utils.DIVIDE
 import com.example.myapplication.utils.EMPTY_STRING
 import com.example.myapplication.utils.MULTIPLY
+import com.example.myapplication.utils.ONE_INT
 import com.example.myapplication.utils.ZERO_FLOAT_RESULT
 import com.example.myapplication.utils.PLUS
 import com.example.myapplication.utils.POINT
 import com.example.myapplication.utils.SUBTRACT
 import com.example.myapplication.utils.TOAST_ZERO_DIVIDE
+import com.example.myapplication.utils.ZERO_INT
 
 class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) {
 
@@ -88,13 +90,13 @@ class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) 
 
     fun onClearPressed() {
         if (model.getOperatorTwo().isNotEmpty()) {
-            model.setOperatorTwo("${model.getOperatorTwo().subSequence(0, model.getOperatorTwo().length - 1)}")
+            model.setOperatorTwo("${model.getOperatorTwo().subSequence(ZERO_INT, model.getOperatorTwo().length - ONE_INT)}")
             view.setVisor("${model.getOperatorOne()}${model.getOperand()}${model.getOperatorTwo()}")
         } else if (model.getOperand().isNotEmpty()) {
             model.setOperand(EMPTY_STRING)
             view.setVisor(model.getOperatorOne())
         } else if (model.getOperatorOne().isNotEmpty()) {
-            model.setOperatorOne("${model.getOperatorOne().subSequence(0, model.getOperatorOne().length - 1)}")
+            model.setOperatorOne("${model.getOperatorOne().subSequence(ZERO_INT, model.getOperatorOne().length - ONE_INT)}")
             view.setVisor(model.getOperatorOne())
         } else {
             view.setVisor(EMPTY_STRING)
