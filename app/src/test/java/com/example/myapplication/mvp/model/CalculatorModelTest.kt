@@ -5,53 +5,51 @@ import com.example.myapplication.utils.PLUS
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 
 class CalculatorModelTest {
 
-    @Mock
-    lateinit var mockModel : CalculatorModel
+    lateinit var model : CalculatorModel
 
     @Before
     fun setUp(){
-        mockModel = CalculatorModel()
+        model = CalculatorModel()
     }
 
     @Test
     fun operatorOneSetterWithANumber(){
-        mockModel.setOperatorOne(ONE_INT.toString())
-        assertEquals(ONE_INT.toString(),mockModel.getOperatorOne())
+        model.operatorOne = ONE_INT.toString()
+        assertEquals(ONE_INT.toString(),model.operatorOne)
     }
 
     @Test
     fun operatorOneSetterWithTwoNumbers(){
-        mockModel.setOperatorOne(ONE_INT.toString())
-        mockModel.setOperatorOne("${mockModel.getOperatorOne()}$ONE_INT")
-        assertEquals(mockModel.getOperatorOne(),"$ONE_INT$ONE_INT")
+        model.operatorOne = ONE_INT.toString()
+        model.operatorOne = "${model.operatorOne}$ONE_INT"
+        assertEquals(model.operatorOne,"$ONE_INT$ONE_INT")
     }
 
     @Test
     fun operatorTwoSetterWithANumber(){
-        mockModel.setOperatorTwo(ONE_INT.toString())
-        assertEquals(ONE_INT.toString(),mockModel.getOperatorTwo())
+        model.operatorTwo = ONE_INT.toString()
+        assertEquals(ONE_INT.toString(),model.operatorTwo)
     }
 
     @Test
     fun operatorTwoSetterWithTwoNumbers(){
-        mockModel.setOperatorTwo(ONE_INT.toString())
-        mockModel.setOperatorTwo("${mockModel.getOperatorTwo()}$ONE_INT")
-        assertEquals(mockModel.getOperatorTwo(),"$ONE_INT$ONE_INT")
+        model.operatorTwo = ONE_INT.toString()
+        model.operatorTwo = "${model.operatorTwo}$ONE_INT"
+        assertEquals(model.operatorTwo,"$ONE_INT$ONE_INT")
     }
 
     @Test
     fun operandSetter(){
-        mockModel.setOperand(PLUS)
-        assertEquals(PLUS,mockModel.getOperand())
+        model.operand = PLUS
+        assertEquals(PLUS,model.operand)
     }
 
     @Test
     fun resultSetter(){
-        mockModel.setResult(ONE_INT.toFloat())
-        assertEquals(ONE_INT.toFloat(),mockModel.getResult())
+        model.result = ONE_INT.toFloat()
+        assertEquals(ONE_INT.toFloat(),model.result)
     }
 }

@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.button_three
 import kotlinx.android.synthetic.main.activity_main.button_two
 import kotlinx.android.synthetic.main.activity_main.button_zero
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private var presenter = CalculatorPresenter(CalculatorModel(), CalculatorView(this))
 
