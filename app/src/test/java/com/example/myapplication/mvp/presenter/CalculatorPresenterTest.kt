@@ -31,7 +31,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandEmpty(){
+    fun resultZeroAndOperandEmptyOnNumberPressed(){
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
         presenter?.onNumberPressed(ONE_INT.toString())
@@ -40,7 +40,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandEmptyAndPoint(){
+    fun resultZeroAndOperandEmptyAndPointOnNumberPressed(){
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
         presenter?.onNumberPressed(POINT)
@@ -50,7 +50,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandNotEmpty(){
+    fun resultZeroAndOperandNotEmptyOnNumberPressed(){
         whenever(mockModel.operand).thenReturn(PLUS)
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operatorOne).thenReturn(POINT)
@@ -61,10 +61,14 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultNotZero(){
+    fun resultNotZeroOnNumberPressed(){
         whenever(mockModel.result).thenReturn(ONE_INT.toFloat())
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
         presenter?.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorOne = ONE_INT.toString()
+    }
+
+    @Test resultZeroAndOperatorOneEmptyOnOperatorPressed(){
+
     }
 }
