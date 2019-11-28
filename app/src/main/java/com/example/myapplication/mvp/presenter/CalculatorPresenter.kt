@@ -5,107 +5,109 @@ import com.example.myapplication.mvp.view.CalculatorView
 import com.example.myapplication.utils.DIVIDE
 import com.example.myapplication.utils.EMPTY_STRING
 import com.example.myapplication.utils.MULTIPLY
+import com.example.myapplication.utils.ONE_INT
 import com.example.myapplication.utils.ZERO_FLOAT_RESULT
 import com.example.myapplication.utils.PLUS
 import com.example.myapplication.utils.POINT
 import com.example.myapplication.utils.SUBTRACT
 import com.example.myapplication.utils.TOAST_ZERO_DIVIDE
+import com.example.myapplication.utils.ZERO_INT
 
-class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) {
+open class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorView) {
 
     fun onNumberPressed(number: String) {
-        if (model.getResult() == ZERO_FLOAT_RESULT) {
-            if (model.getOperand().isEmpty()) {
-                model.setOperatorOne("${model.getOperatorOne()}$number")
-                view.setVisor(model.getOperatorOne())
+        if (model.result == ZERO_FLOAT_RESULT) {
+            if (model.operatorOne.isEmpty()) {
+                model.operatorOne = "${model.operatorOne}$number"
+                view.setVisor(model.operatorOne)
             } else {
-                model.setOperatorTwo("${model.getOperatorTwo()}$number")
-                view.setVisor("${model.getOperatorOne()}${model.getOperand()}${model.getOperatorTwo()}")
+                model.operatorTwo = "${model.operatorTwo}$number"
+                view.setVisor("${model.operatorOne}${model.operand}${model.operatorTwo}")
             }
             if (number == POINT)
                 view.diseablePoint()
         } else {
-            model.setResult(ZERO_FLOAT_RESULT)
-            model.setOperatorOne("${model.getOperatorOne()}$number")
-            view.setVisor(model.getOperatorOne())
+            model.result = ZERO_FLOAT_RESULT
+            model.operatorOne = "${model.operatorOne}$number"
+            view.setVisor(model.operatorOne)
         }
     }
 
     fun onOperatorPressed(operator: String) {
-        if (model.getResult() == ZERO_FLOAT_RESULT) {
-            if (model.getOperatorOne().isNotEmpty() && model.getOperatorTwo().isEmpty()) {
-                if (model.getOperand().isEmpty()) {
-                    model.setOperand(operator)
-                    view.setVisor("${model.getOperatorOne()}$operator")
+        if (model.result == ZERO_FLOAT_RESULT) {
+            if (model.operatorOne.isNotEmpty() && model.operatorTwo.isEmpty()) {
+                if (model.operand.isEmpty()) {
+                    model.operand = operator
+                    view.setVisor("${model.operatorOne}$operator")
                 } else {
-                    model.setOperatorTwo(EMPTY_STRING)
-                    model.setOperand(operator)
-                    view.setVisor("${model.getOperatorOne()}$operator")
+                    model.operatorTwo = EMPTY_STRING
+                    model.operand = operator
+                    view.setVisor("${model.operatorOne}$operator")
                 }
             }
             view.activePoint()
-        } else if (model.getOperand().isEmpty()) {
-            model.setOperand(operator)
-            model.setOperatorOne(model.getResult().toString())
-            model.setResult(ZERO_FLOAT_RESULT)
-            view.setVisor("${model.getOperatorOne()}$operator")
+        } else if (model.operand.isEmpty()) {
+            model.operand = operator
+            model.operatorOne = model.result.toString()
+            model.result = ZERO_FLOAT_RESULT
+            view.setVisor("${model.operatorOne}$operator")
             view.setResult(EMPTY_STRING)
         }
     }
 
     fun onEqualPressed() {
-        if (model.getOperatorOne().isNotEmpty() && model.getOperatorTwo().isNotEmpty()) {
-            if (model.getOperatorOne() != POINT && model.getOperatorTwo() != POINT) {
-                when (model.getOperand()) {
+        if (model.operatorOne.isNotEmpty() && model.operatorTwo.isNotEmpty()) {
+            if (model.operatorOne != POINT && model.operatorTwo != POINT) {
+                when (model.operand) {
                     PLUS -> {
-                        model.setResult(model.getOperatorOne().toFloat() + model.getOperatorTwo().toFloat())
-                        view.setResult(model.getResult().toString())
+                        model.result = model.operatorOne.toFloat() + model.operatorTwo.toFloat()
+                        view.setResult(model.result.toString())
                     }
                     SUBTRACT -> {
-                        model.setResult(model.getOperatorOne().toFloat() - model.getOperatorTwo().toFloat())
-                        view.setResult(model.getResult().toString())
+                        model.result = model.operatorOne.toFloat() - model.operatorTwo.toFloat()
+                        view.setResult(model.result.toString())
                     }
                     DIVIDE -> {
-                        if (model.getOperatorTwo().toFloat() != ZERO_FLOAT_RESULT) {
-                            model.setResult(model.getOperatorOne().toFloat() / model.getOperatorTwo().toFloat())
-                            view.setResult(model.getResult().toString())
+                        if (model.operatorTwo.toFloat() != ZERO_FLOAT_RESULT) {
+                            model.result = model.operatorOne.toFloat() / model.operatorTwo.toFloat()
+                            view.setResult(model.result.toString())
                         } else {
                             view.showToastError(TOAST_ZERO_DIVIDE)
                         }
                     }
                     MULTIPLY -> {
-                        model.setResult(model.getOperatorOne().toFloat() * model.getOperatorTwo().toFloat())
-                        view.setResult(model.getResult().toString())
+                        model.result = model.operatorOne.toFloat() * model.operatorTwo.toFloat()
+                        view.setResult(model.result.toString())
                     }
                 }
-                model.setOperatorOne(EMPTY_STRING)
-                model.setOperatorTwo(EMPTY_STRING)
-                model.setOperand(EMPTY_STRING)
+                model.operatorOne = EMPTY_STRING
+                model.operatorTwo = EMPTY_STRING
+                model.operand = EMPTY_STRING
                 view.activePoint()
             }
         }
     }
 
     fun onClearPressed() {
-        if (model.getOperatorTwo().isNotEmpty()) {
-            model.setOperatorTwo("${model.getOperatorTwo().subSequence(0, model.getOperatorTwo().length - 1)}")
-            view.setVisor("${model.getOperatorOne()}${model.getOperand()}${model.getOperatorTwo()}")
-        } else if (model.getOperand().isNotEmpty()) {
-            model.setOperand(EMPTY_STRING)
-            view.setVisor(model.getOperatorOne())
-        } else if (model.getOperatorOne().isNotEmpty()) {
-            model.setOperatorOne("${model.getOperatorOne().subSequence(0, model.getOperatorOne().length - 1)}")
-            view.setVisor(model.getOperatorOne())
+        if (model.operatorTwo.isNotEmpty()) {
+            model.operatorTwo = "${model.operatorTwo.subSequence(ZERO_INT, model.operatorTwo.length - ONE_INT)}"
+            view.setVisor("${model.operatorOne}${model.operand}${model.operatorTwo}")
+        } else if (model.operand.isNotEmpty()) {
+            model.operand = EMPTY_STRING
+            view.setVisor(model.operatorOne)
+        } else if (model.operatorOne.isNotEmpty()) {
+            model.operatorOne = "${model.operatorOne.subSequence(ZERO_INT, model.operatorOne.length - ONE_INT)}"
+            view.setVisor(model.operatorOne)
         } else {
             view.setVisor(EMPTY_STRING)
         }
     }
 
     fun onClearAllPressed() {
-        model.setOperand(EMPTY_STRING)
-        model.setOperatorOne(EMPTY_STRING)
-        model.setOperatorTwo(EMPTY_STRING)
-        model.setResult(ZERO_FLOAT_RESULT)
+        model.operand = EMPTY_STRING
+        model.operatorOne = EMPTY_STRING
+        model.operatorTwo = EMPTY_STRING
+        model.result = ZERO_FLOAT_RESULT
         view.setVisor(EMPTY_STRING)
         view.setResult(EMPTY_STRING)
     }
