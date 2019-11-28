@@ -17,15 +17,16 @@ open class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorV
 
     fun onNumberPressed(number: String) {
         if (model.result == ZERO_FLOAT_RESULT) {
-            if (model.operatorOne.isEmpty()) {
+            if (model.operand.isEmpty()) {
                 model.operatorOne = "${model.operatorOne}$number"
                 view.setVisor(model.operatorOne)
             } else {
                 model.operatorTwo = "${model.operatorTwo}$number"
                 view.setVisor("${model.operatorOne}${model.operand}${model.operatorTwo}")
             }
-            if (number == POINT)
+            if (number == POINT) {
                 view.diseablePoint()
+            }
         } else {
             model.result = ZERO_FLOAT_RESULT
             model.operatorOne = "${model.operatorOne}$number"
@@ -35,16 +36,11 @@ open class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorV
 
     fun onOperatorPressed(operator: String) {
         if (model.result == ZERO_FLOAT_RESULT) {
-            if (model.operatorOne.isNotEmpty() && model.operatorTwo.isEmpty()) {
-                if (model.operand.isEmpty()) {
-                    model.operand = operator
-                    view.setVisor("${model.operatorOne}$operator")
-                } else {
-                    model.operatorTwo = EMPTY_STRING
-                    model.operand = operator
-                    view.setVisor("${model.operatorOne}$operator")
-                }
+            if (model.operand.isNotEmpty()) {
+                model.operatorTwo = EMPTY_STRING
             }
+            model.operand = operator
+            view.setVisor("${model.operatorOne}$operator")
             view.activePoint()
         } else if (model.operand.isEmpty()) {
             model.operand = operator
