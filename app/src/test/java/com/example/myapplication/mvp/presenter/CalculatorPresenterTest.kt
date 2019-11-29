@@ -23,19 +23,22 @@ import org.mockito.MockitoAnnotations
 class CalculatorPresenterTest {
 
     private var presenter: CalculatorPresenter? = null
-    @Mock  lateinit var mockModel: CalculatorModel
-    @Mock lateinit var mockView: CalculatorView
-    @Mock lateinit var mockActivity: MainActivity
+    @Mock
+    lateinit var mockModel: CalculatorModel
+    @Mock
+    lateinit var mockView: CalculatorView
+    @Mock
+    lateinit var mockActivity: MainActivity
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         whenever(mockView.activity).thenReturn(mockActivity)
-        presenter = CalculatorPresenter(mockModel,mockView)
+        presenter = CalculatorPresenter(mockModel, mockView)
     }
 
     @Test
-    fun resultZeroAndOperandEmptyOnNumberPressed(){
+    fun resultZeroAndOperandEmptyOnNumberPressed() {
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operand).thenReturn(EMPTY_STRING)
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
@@ -45,7 +48,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandEmptyAndPointOnNumberPressed(){
+    fun resultZeroAndOperandEmptyAndPointOnNumberPressed() {
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operand).thenReturn(EMPTY_STRING)
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
@@ -56,7 +59,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandNotEmptyOnNumberPressed(){
+    fun resultZeroAndOperandNotEmptyOnNumberPressed() {
         whenever(mockModel.operand).thenReturn(PLUS)
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
         whenever(mockModel.operatorOne).thenReturn(POINT)
@@ -67,7 +70,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultNotZeroOnNumberPressed(){
+    fun resultNotZeroOnNumberPressed() {
         whenever(mockModel.result).thenReturn(ONE_INT.toFloat())
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
         presenter?.onNumberPressed(ONE_INT.toString())
@@ -75,7 +78,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun resultZeroAndOperandEmptyOnOperatorPressed(){
+    fun resultZeroAndOperandEmptyOnOperatorPressed() {
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
         whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
@@ -114,7 +117,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun operatorTwoNotEmptyOnClearPressed(){
+    fun operatorTwoNotEmptyOnClearPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(PLUS)
@@ -123,7 +126,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun operandNotEmptyOnClearPressed(){
+    fun operandNotEmptyOnClearPressed() {
         whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(PLUS)
@@ -132,7 +135,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun operandOneNotEmptyOnClearPressed(){
+    fun operandOneNotEmptyOnClearPressed() {
         whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(EMPTY_STRING)
@@ -141,7 +144,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun allEmptyOnClearPressed(){
+    fun allEmptyOnClearPressed() {
         whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
         whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
         whenever(mockModel.operand).thenReturn(EMPTY_STRING)
@@ -150,7 +153,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun plusOnEqualPressed(){
+    fun plusOnEqualPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(PLUS)
@@ -159,7 +162,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun subtractOnEqualPressed(){
+    fun subtractOnEqualPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(SUBTRACT)
@@ -168,7 +171,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun divideOnEqualPressed(){
+    fun divideOnEqualPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(DIVIDE)
@@ -177,7 +180,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun divideWithZeroOnEqualPressed(){
+    fun divideWithZeroOnEqualPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ZERO_FLOAT_RESULT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(DIVIDE)
@@ -186,7 +189,7 @@ class CalculatorPresenterTest {
     }
 
     @Test
-    fun multiplyOnEqualPressed(){
+    fun multiplyOnEqualPressed() {
         whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
         whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
         whenever(mockModel.operand).thenReturn(MULTIPLY)

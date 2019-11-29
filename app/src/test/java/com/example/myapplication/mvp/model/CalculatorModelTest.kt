@@ -8,48 +8,48 @@ import org.junit.Test
 
 class CalculatorModelTest {
 
-    lateinit var model : CalculatorModel
+    lateinit var model: CalculatorModel
 
     @Before
-    fun setUp(){
+    fun setUp() {
         model = CalculatorModel()
     }
 
     @Test
-    fun operatorOneSetterWithANumber(){
+    fun operatorOneSetterWithANumber() {
         model.operatorOne = ONE_INT.toString()
-        assertEquals(ONE_INT.toString(),model.operatorOne)
+        assertEquals(ONE_INT.toString(), model.operatorOne)
     }
 
     @Test
-    fun operatorOneSetterWithTwoNumbers(){
+    fun operatorOneSetterWithTwoNumbers() {
         model.operatorOne = ONE_INT.toString()
         model.operatorOne = "${model.operatorOne}$ONE_INT"
-        assertEquals(model.operatorOne,"$ONE_INT$ONE_INT")
+        assertEquals(model.operatorOne, "$ONE_INT$ONE_INT")
     }
 
     @Test
-    fun operatorTwoSetterWithANumber(){
+    fun operatorTwoSetterWithANumber() {
         model.operatorTwo = ONE_INT.toString()
-        assertEquals(ONE_INT.toString(),model.operatorTwo)
+        assertEquals(ONE_INT.toString(), model.operatorTwo)
     }
 
     @Test
-    fun operatorTwoSetterWithTwoNumbers(){
+    fun operatorTwoSetterWithTwoNumbers() {
         model.operatorTwo = ONE_INT.toString()
         model.operatorTwo = "${model.operatorTwo}$ONE_INT"
-        assertEquals(model.operatorTwo,"$ONE_INT$ONE_INT")
+        assertEquals(model.operatorTwo, "$ONE_INT$ONE_INT")
     }
 
     @Test
-    fun operandSetter(){
+    fun operandSetter() {
         model.operand = PLUS
-        assertEquals(PLUS,model.operand)
+        assertEquals(PLUS, model.operand)
     }
 
     @Test
-    fun resultSetter(){
+    fun resultSetter() {
         model.result = ONE_INT.toFloat()
-        assertEquals(ONE_INT.toFloat(),model.result)
+        assertEquals(ONE_INT.toFloat(), model.result)
     }
 }
