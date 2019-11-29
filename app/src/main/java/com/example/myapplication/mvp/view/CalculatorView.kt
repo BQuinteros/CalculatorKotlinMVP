@@ -17,15 +17,15 @@ class CalculatorView(activity: Activity) : ActivityView(activity) {
         activity?.text_result?.text = result
     }
 
-    fun showToastError( text : String ) {
-        Toast.makeText(activity,text,Toast.LENGTH_SHORT).show();
+    fun showToastError(text: String) {
+        Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
     }
 
-    fun diseablePoint(){
+    fun diseablePoint() {
         activity?.button_point?.isClickable = false
     }
 
-    fun activePoint(){
+    fun activePoint() {
         activity?.button_point?.isClickable = true
     }
 }
