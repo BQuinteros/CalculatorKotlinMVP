@@ -106,7 +106,7 @@ class CalculatorPresenterTest {
         mockModel.operand = EMPTY_STRING
         presenter.onOperatorPressed(PLUS)
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS")
-        assertEquals("${mockModel.operatorOne}", mockModel.operatorOne)
+        assertEquals("${ONE_INT.toFloat()}", mockModel.operatorOne)
         assertEquals(PLUS, mockModel.operand)
     }
 
