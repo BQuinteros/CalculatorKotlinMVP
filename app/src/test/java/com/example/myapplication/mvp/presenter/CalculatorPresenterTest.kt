@@ -48,7 +48,7 @@ class CalculatorPresenterTest {
         presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorOne = ONE_INT.toString()
         verify(mockView).setVisor(ONE_INT.toString())
-        assertEquals(ONE_INT.toString(),mockModel.operatorOne)
+        assertEquals(ONE_INT.toString(), mockModel.operatorOne)
     }
 
     @Test
@@ -60,7 +60,7 @@ class CalculatorPresenterTest {
         verify(mockModel).operatorOne = POINT
         verify(mockView).setVisor(mockModel.operatorOne)
         verify(mockView).diseablePoint()
-        assertEquals(POINT,mockModel.operatorOne)
+        assertEquals(POINT, mockModel.operatorOne)
     }
 
     @Test
@@ -72,7 +72,7 @@ class CalculatorPresenterTest {
         presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorTwo = ONE_INT.toString()
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS${mockModel.operatorTwo}")
-        assertEquals(ONE_INT.toString(),mockModel.operatorTwo)
+        assertEquals(ONE_INT.toString(), mockModel.operatorTwo)
     }
 
     @Test
@@ -82,7 +82,7 @@ class CalculatorPresenterTest {
         mockModel.operatorTwo = EMPTY_STRING
         presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorOne = ONE_INT.toString()
-        assertEquals(ONE_INT.toString(),mockModel.operatorOne)
+        assertEquals(ONE_INT.toString(), mockModel.operatorOne)
     }
 
     @Test
@@ -106,8 +106,8 @@ class CalculatorPresenterTest {
         mockModel.operand = EMPTY_STRING
         presenter.onOperatorPressed(PLUS)
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS")
-        assertEquals("${mockModel.operatorOne}",mockModel.operatorOne)
-        assertEquals(PLUS,mockModel.operand)
+        assertEquals("${mockModel.operatorOne}", mockModel.operatorOne)
+        assertEquals(PLUS, mockModel.operand)
     }
 
     @Test
@@ -121,10 +121,10 @@ class CalculatorPresenterTest {
         verify(mockModel).operatorTwo = EMPTY_STRING
         verify(mockModel).operand = EMPTY_STRING
         verify(mockModel).result = ZERO_FLOAT_RESULT
-        assertEquals(EMPTY_STRING,mockModel.operatorOne)
-        assertEquals(EMPTY_STRING,mockModel.operatorTwo)
-        assertEquals(EMPTY_STRING,mockModel.operand)
-        assertEquals(ZERO_FLOAT_RESULT,mockModel.result)
+        assertEquals(EMPTY_STRING, mockModel.operatorOne)
+        assertEquals(EMPTY_STRING, mockModel.operatorTwo)
+        assertEquals(EMPTY_STRING, mockModel.operand)
+        assertEquals(ZERO_FLOAT_RESULT, mockModel.result)
     }
 
     @Test
@@ -143,7 +143,7 @@ class CalculatorPresenterTest {
         mockModel.operand = PLUS
         presenter.onClearPressed()
         verify(mockModel).operand = EMPTY_STRING
-        assertEquals(EMPTY_STRING,mockModel.operand)
+        assertEquals(EMPTY_STRING, mockModel.operand)
     }
 
     @Test
@@ -153,7 +153,7 @@ class CalculatorPresenterTest {
         mockModel.operand = EMPTY_STRING
         presenter.onClearPressed()
         verify(mockModel).operatorOne = EMPTY_STRING
-        assertEquals(EMPTY_STRING,mockModel.operatorOne)
+        assertEquals(EMPTY_STRING, mockModel.operatorOne)
     }
 
     @Test
@@ -172,7 +172,7 @@ class CalculatorPresenterTest {
         mockModel.operand = PLUS
         presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() + ONE_INT.toFloat()
-        assertEquals(ONE_INT.toFloat() + ONE_INT.toFloat(),mockModel.result)
+        assertEquals(ONE_INT.toFloat() + ONE_INT.toFloat(), mockModel.result)
     }
 
     @Test
@@ -182,7 +182,7 @@ class CalculatorPresenterTest {
         mockModel.operand = SUBTRACT
         presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() - ONE_INT.toFloat()
-        assertEquals(ZERO_FLOAT_RESULT,mockModel.result)
+        assertEquals(ZERO_FLOAT_RESULT, mockModel.result)
 
     }
 
