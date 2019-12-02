@@ -12,18 +12,21 @@ import com.example.myapplication.utils.POINT
 import com.example.myapplication.utils.SUBTRACT
 import com.example.myapplication.utils.TOAST_ZERO_DIVIDE
 import com.example.myapplication.utils.ZERO_FLOAT_RESULT
+import com.nhaarman.mockitokotlin2.mockingDetails
 import com.nhaarman.mockitokotlin2.whenever
+import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import org.mockito.Spy
 
 class CalculatorPresenterTest {
 
-    private var presenter: CalculatorPresenter? = null
-    @Mock
+    private lateinit var presenter: CalculatorPresenter
+    @Spy
     lateinit var mockModel: CalculatorModel
     @Mock
     lateinit var mockView: CalculatorView
@@ -39,161 +42,176 @@ class CalculatorPresenterTest {
 
     @Test
     fun resultZeroAndOperandEmptyOnNumberPressed() {
-        whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
-        whenever(mockModel.operand).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
-        presenter?.onNumberPressed(ONE_INT.toString())
+        mockModel.result = ZERO_FLOAT_RESULT
+        mockModel.operatorOne = EMPTY_STRING
+        mockModel.operatorTwo = EMPTY_STRING
+        presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorOne = ONE_INT.toString()
-        verify(mockView).setVisor(mockModel.operatorOne)
+        verify(mockView).setVisor(ONE_INT.toString())
+        assertEquals(ONE_INT.toString(),mockModel.operatorOne)
     }
 
     @Test
     fun resultZeroAndOperandEmptyAndPointOnNumberPressed() {
-        whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
-        whenever(mockModel.operand).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
-        presenter?.onNumberPressed(POINT)
+        mockModel.result = ZERO_FLOAT_RESULT
+        mockModel.operatorOne = EMPTY_STRING
+        mockModel.operand = EMPTY_STRING
+        presenter.onNumberPressed(POINT)
         verify(mockModel).operatorOne = POINT
         verify(mockView).setVisor(mockModel.operatorOne)
         verify(mockView).diseablePoint()
+        assertEquals(POINT,mockModel.operatorOne)
     }
 
     @Test
     fun resultZeroAndOperandNotEmptyOnNumberPressed() {
-        whenever(mockModel.operand).thenReturn(PLUS)
-        whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
-        whenever(mockModel.operatorOne).thenReturn(POINT)
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        presenter?.onNumberPressed(ONE_INT.toString())
+        mockModel.result = ZERO_FLOAT_RESULT
+        mockModel.operatorOne = POINT
+        mockModel.operand = PLUS
+        mockModel.operatorTwo = EMPTY_STRING
+        presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorTwo = ONE_INT.toString()
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS${mockModel.operatorTwo}")
+        assertEquals(ONE_INT.toString(),mockModel.operatorTwo)
     }
 
     @Test
     fun resultNotZeroOnNumberPressed() {
-        whenever(mockModel.result).thenReturn(ONE_INT.toFloat())
-        whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
-        presenter?.onNumberPressed(ONE_INT.toString())
+        mockModel.result = ONE_INT.toFloat()
+        mockModel.operatorOne = EMPTY_STRING
+        mockModel.operatorTwo = EMPTY_STRING
+        presenter.onNumberPressed(ONE_INT.toString())
         verify(mockModel).operatorOne = ONE_INT.toString()
+        assertEquals(ONE_INT.toString(),mockModel.operatorOne)
     }
 
     @Test
     fun resultZeroAndOperandEmptyOnOperatorPressed() {
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        whenever(mockModel.result).thenReturn(ZERO_FLOAT_RESULT)
-        whenever(mockModel.operand).thenReturn(PLUS)
-        presenter?.onOperatorPressed(PLUS)
-        verify(mockModel).operatorTwo = EMPTY_STRING
-        verify(mockModel).operand = PLUS
+        mockModel.result = ZERO_FLOAT_RESULT
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operatorTwo = EMPTY_STRING
+        mockModel.operand = PLUS
+        presenter.onOperatorPressed(PLUS)
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS")
         verify(mockView).activePoint()
+        assertEquals(mockModel.operatorTwo, EMPTY_STRING)
+        assertEquals(mockModel.operand, PLUS)
     }
 
     @Test
     fun resultNotZeroAndOperandEmptyOnOperatorPressed() {
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        whenever(mockModel.result).thenReturn(ONE_INT.toFloat())
-        whenever(mockModel.operand).thenReturn(EMPTY_STRING)
-        presenter?.onOperatorPressed(PLUS)
-        verify(mockModel).operatorOne = "${mockModel.operatorOne}$POINT$ZERO_FLOAT_RESULT"
-        verify(mockModel).operand = PLUS
-        verify(mockModel).result = ZERO_FLOAT_RESULT
+        mockModel.result = ONE_INT.toFloat()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operatorTwo = EMPTY_STRING
+        mockModel.operand = EMPTY_STRING
+        presenter.onOperatorPressed(PLUS)
         verify(mockView).setVisor("${mockModel.operatorOne}$PLUS")
+        assertEquals("${mockModel.operatorOne}",mockModel.operatorOne)
+        assertEquals(PLUS,mockModel.operand)
     }
 
     @Test
     fun onClearAllPressedTest() {
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(PLUS)
-        whenever(mockModel.result).thenReturn(ONE_INT.toFloat())
-        presenter?.onClearAllPressed()
+        mockModel.result = ONE_INT.toFloat()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operand = PLUS
+        presenter.onClearAllPressed()
         verify(mockModel).operatorOne = EMPTY_STRING
         verify(mockModel).operatorTwo = EMPTY_STRING
         verify(mockModel).operand = EMPTY_STRING
         verify(mockModel).result = ZERO_FLOAT_RESULT
+        assertEquals(EMPTY_STRING,mockModel.operatorOne)
+        assertEquals(EMPTY_STRING,mockModel.operatorTwo)
+        assertEquals(EMPTY_STRING,mockModel.operand)
+        assertEquals(ZERO_FLOAT_RESULT,mockModel.result)
     }
 
     @Test
     fun operatorTwoNotEmptyOnClearPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(PLUS)
-        presenter?.onClearPressed()
-        verify(mockModel).operatorTwo = EMPTY_STRING
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operand = PLUS
+        presenter.onClearPressed()
+        assertEquals(mockModel.operatorTwo, EMPTY_STRING)
     }
 
     @Test
     fun operandNotEmptyOnClearPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(PLUS)
-        presenter?.onClearPressed()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operatorTwo = EMPTY_STRING
+        mockModel.operand = PLUS
+        presenter.onClearPressed()
         verify(mockModel).operand = EMPTY_STRING
+        assertEquals(EMPTY_STRING,mockModel.operand)
     }
 
     @Test
     fun operandOneNotEmptyOnClearPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(EMPTY_STRING)
-        presenter?.onClearPressed()
+        mockModel.operatorTwo = EMPTY_STRING
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = EMPTY_STRING
+        presenter.onClearPressed()
         verify(mockModel).operatorOne = EMPTY_STRING
+        assertEquals(EMPTY_STRING,mockModel.operatorOne)
     }
 
     @Test
     fun allEmptyOnClearPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operatorOne).thenReturn(EMPTY_STRING)
-        whenever(mockModel.operand).thenReturn(EMPTY_STRING)
-        presenter?.onClearPressed()
+        mockModel.operatorTwo = EMPTY_STRING
+        mockModel.operatorOne = EMPTY_STRING
+        mockModel.operand = EMPTY_STRING
+        presenter.onClearPressed()
         verify(mockView).setVisor(EMPTY_STRING)
     }
 
     @Test
     fun plusOnEqualPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(PLUS)
-        presenter?.onEqualPressed()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = PLUS
+        presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() + ONE_INT.toFloat()
+        assertEquals(ONE_INT.toFloat() + ONE_INT.toFloat(),mockModel.result)
     }
 
     @Test
     fun subtractOnEqualPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(SUBTRACT)
-        presenter?.onEqualPressed()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = SUBTRACT
+        presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() - ONE_INT.toFloat()
+        assertEquals(ZERO_FLOAT_RESULT,mockModel.result)
+
     }
 
     @Test
     fun divideOnEqualPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(DIVIDE)
-        presenter?.onEqualPressed()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = DIVIDE
+        presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() / ONE_INT.toFloat()
+        assertEquals(mockModel.result, ONE_INT.toFloat())
     }
 
     @Test
     fun divideWithZeroOnEqualPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ZERO_FLOAT_RESULT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(DIVIDE)
-        presenter?.onEqualPressed()
+        mockModel.operatorTwo = ZERO_FLOAT_RESULT.toString()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = DIVIDE
+        presenter.onEqualPressed()
         verify(mockView).showToastError(TOAST_ZERO_DIVIDE)
     }
 
     @Test
     fun multiplyOnEqualPressed() {
-        whenever(mockModel.operatorTwo).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operatorOne).thenReturn(ONE_INT.toString())
-        whenever(mockModel.operand).thenReturn(MULTIPLY)
-        presenter?.onEqualPressed()
+        mockModel.operatorTwo = ONE_INT.toString()
+        mockModel.operatorOne = ONE_INT.toString()
+        mockModel.operand = MULTIPLY
+        presenter.onEqualPressed()
         verify(mockModel).result = ONE_INT.toFloat() * ONE_INT.toFloat()
+        assertEquals(mockModel.result, ONE_INT.toFloat())
     }
 }
