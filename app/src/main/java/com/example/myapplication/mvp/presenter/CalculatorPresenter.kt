@@ -76,9 +76,7 @@ open class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorV
                         view.setResult(model.result.toString())
                     }
                 }
-                model.operatorOne = EMPTY_STRING
-                model.operatorTwo = EMPTY_STRING
-                model.operand = EMPTY_STRING
+                model.resetVisor()
                 view.activePoint()
             }
         }
@@ -100,10 +98,7 @@ open class CalculatorPresenter(val model: CalculatorModel, val view: CalculatorV
     }
 
     fun onClearAllPressed() {
-        model.operand = EMPTY_STRING
-        model.operatorOne = EMPTY_STRING
-        model.operatorTwo = EMPTY_STRING
-        model.result = ZERO_FLOAT_RESULT
+        model.resetAll()
         view.setVisor(EMPTY_STRING)
         view.setResult(EMPTY_STRING)
     }

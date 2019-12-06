@@ -8,4 +8,17 @@ class CalculatorModel {
     var operatorTwo: String = EMPTY_STRING
     var operand: String = EMPTY_STRING
     var result: Float = ZERO_FLOAT_RESULT
+
+    fun resetAll() {
+        operatorOne = EMPTY_STRING
+        operatorTwo = EMPTY_STRING
+        operand = EMPTY_STRING
+        result = ZERO_FLOAT_RESULT
+    }
+
+    fun resetVisor() {
+        operatorOne = EMPTY_STRING
+        operatorTwo = EMPTY_STRING
+        operand = EMPTY_STRING
+    }
 }
